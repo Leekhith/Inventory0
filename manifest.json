@@ -1,0 +1,16 @@
+{
+  "name": "My Rental PWA",
+  "short_name": "Rentals",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#ee2e24",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/25/25694.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

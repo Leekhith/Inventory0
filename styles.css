@@ -1,0 +1,165 @@
+/* RESET & LAYOUT */
+body { margin: 0; padding: 0; font-family: sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+/* MAP BACKGROUND */
+#map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+
+/* TOP OVERLAY */
+.top-container { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0)); padding-bottom: 20px; }
+.app-header {
+    display: flex;
+    justify-content: space-between; /* Pushes items to Left, Center, Right */
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.brand-logo {
+    color: #ee2e24;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* SEARCH PILL */
+.search-pill { background: white; margin: 0 20px; padding: 10px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; }
+.search-pill input { border: none; outline: none; width: 100%; font-size: 14px; }
+
+/* CATEGORIES */
+.categories-row { display: flex; gap: 15px; overflow-x: auto; padding: 15px 20px; scrollbar-width: none; }
+.cat-item { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+.cat-icon { width: 45px; height: 45px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+
+/* BOTTOM NAV */
+.bottom-nav { position: fixed; bottom: 0; width: 100%; height: 60px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; z-index: 20; }
+.nav-item { text-decoration: none; color: #999; font-size: 10px; display: flex; flex-direction: column; align-items: center; }
+.nav-item.active { color: #ee2e24; }
+.nav-icon { font-size: 20px; margin-bottom: 2px; }
+
+/* FLOATING LOCATION BUTTON */
+.fab-location {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: white; /* White background like Google Maps */
+    color: #333;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Softer shadow */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fab-location svg {
+    fill: #444; /* Dark grey icon color */
+}
+
+/* ... existing styles ... */
+
+/* 1. GOOGLE MAPS STYLE BLUE DOT MARKER */
+.user-location-dot {
+    width: 15px;
+    height: 15px;
+    background-color: #4285F4;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 15px rgba(66, 133, 244, 0.2); /* The light blue pulse */
+}
+
+/* 2. GOOGLE MAPS STYLE LOCATE BUTTON */
+.fab-location {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Soft shadow */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.fab-location:active {
+    background: #f1f1f1;
+}
+
+/* BOTTOM PROPERTY CARD */
+.property-card {
+    position: fixed;
+    bottom: 70px; /* Above Bottom Nav */
+    left: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1001; /* Above everything */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: transform 0.3s ease-in-out;
+}
+
+.property-card.hidden {
+    transform: translateY(200%); /* Slide down to hide */
+}
+
+.close-card {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+}
+
+/* --- FORM & LOGIN STYLES --- */
+.login-container {
+    padding: 20px;
+    max-width: 400px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+input[type="email"], 
+input[type="password"], 
+input[type="text"], 
+input[type="number"], 
+select, 
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box; /* Keeps padding inside width */
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #ee2e24; /* OYO Red */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}

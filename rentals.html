@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Map</title>
+
+    <style>
+        body { margin: 0; padding: 0; font-family: sans-serif; }
+        #debug-log { background: #333; color: #fff; padding: 10px; font-size: 12px; height: 100px; overflow: auto; }
+        #map { height: 500px; width: 100%; background-color: #eee; border-bottom: 5px solid red; }
+    </style>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div id="debug-log">Log: initializing...<br></div>
+
+    <div id="map"></div>
+
+    <a href="index.html" style="display:block; padding:20px; text-align:center;">Back Home</a>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        function log(msg) {
+            document.getElementById('debug-log').innerHTML += msg + '<br>';
+        }
+
+        try {
+            log("Checking Leaflet library...");
+            if (typeof L === 'undefined') {
+                log("ERROR: Leaflet library NOT loaded. Check internet connection.");
+            } else {
+                log("Leaflet loaded. Creating map...");
+
+                // Default to Vizag coordinates
+                var map = L.map('map').setView([17.6868, 83.2185], 13);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'OpenStreetMap'
+                }).addTo(map);
+
+                L.marker([17.6868, 83.2185]).addTo(map)
+                    .bindPopup("Test Pin").openPopup();
+
+                log("SUCCESS: Map code finished. You should see a map below.");
+            }
+        } catch (err) {
+            log("CRITICAL ERROR: " + err.message);
+        }
+    </script>
+</body>
+</html>

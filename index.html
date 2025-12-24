@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentals</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <div class="top-container">
+    <div class="app-header">
+        <div class="menu-icon">☰</div>
+        <div class="brand-logo">Nearby</div>
+        <div style="width: 24px;"></div> </div>
+
+    <div class="search-pill">
+        <span>🔍</span>
+        <input type="text" id="search-input" placeholder="Search for 1BHK, Wines...">
+    </div>
+
+    <div class="categories-row">
+        <div class="cat-item" onclick="loadMapProperties('1BHK')">
+            <div class="cat-icon" style="background: #ee2e24;">1</div>
+            <span>1BHK</span>
+        </div>
+        <div class="cat-item" onclick="loadMapProperties('2BHK')">
+            <div class="cat-icon" style="background: #f5a623;">2</div>
+            <span>2BHK</span>
+        </div>
+        <div class="cat-item" onclick="window.location.href='products.html'">
+            <div class="cat-icon" style="background: #4a90e2;">🛍️</div>
+            <span>Shop</span>
+        </div>
+    </div>
+</div>
+
+    <button id="fab-location-btn" class="fab-location" onclick="locateUser()">
+    <svg fill="#555555" height="24px" width="24px" viewBox="0 0 24 24">
+        <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+    </svg>
+</button>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="nav-icon">🏠</span> <span>Home</span>
+        </a>
+        <a href="add-property.html" class="nav-item">
+            <span class="nav-icon">➕</span> <span>List</span>
+        </a>
+        <a href="login.html" class="nav-item">
+            <span class="nav-icon">👤</span> <span>Login</span>
+        </a>
+    </nav>
+
+    <script src="app.js"></script>
+    /*bottom card*/
+    <div id="property-card" class="property-card hidden">
+    <div class="card-content">
+        <h3 id="card-title">Property Name</h3>
+        <p id="card-price" style="color: #ee2e24; font-weight: bold;">$0</p>
+        <p id="card-type" style="color: gray; font-size: 12px;">Apartment</p>
+        <button onclick="alert('Details page coming soon!')" style="width:100%; margin-top:10px; padding:8px; background:#333; color:white; border:none; border-radius:4px;">View Details</button>
+    </div>
+    <button class="close-card" onclick="closeCard()">×</button>
+</div>
+</body>
+</html>

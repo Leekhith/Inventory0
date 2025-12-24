@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+<body style="background: #f3f4f6;">
+
+    <div class="top-container" style="position:relative; background:white; padding-bottom:0;">
+        <div class="app-header">
+            <div class="menu-icon" onclick="window.location.href='login.html'">←</div>
+            <div class="brand-logo" style="margin:0 auto;">Sign Up</div>
+            <div style="width: 24px;"></div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h2 style="margin-top:0;">Create Account</h2>
+        
+        <div id="step-1">
+            <p style="color:gray; font-size:14px; margin-bottom: 20px;">We will send a code to your email.</p>
+            <form id="signup-form">
+                <input type="text" id="full-name" placeholder="Full Name" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="password" id="password" placeholder="Password (min 6 chars)" required>
+                <button type="submit">Send Verification Code</button>
+            </form>
+        </div>
+
+        <div id="step-2" style="display: none;">
+            <p style="color:#ee2e24; font-weight:bold;">Check your Email!</p>
+            <p style="color:gray; font-size:14px;">Enter the 6-digit code sent to your email.</p>
+            
+            <input type="text" id="otp-code" placeholder="123456" style="text-align:center; letter-spacing: 5px; font-size: 20px;" maxlength="6">
+            
+            <button onclick="verifyCode()" style="margin-bottom: 15px;">Verify & Login</button>
+            
+            <div style="font-size: 13px; color: gray;">
+                Didn't get the code? 
+                <span id="resend-link" onclick="resendCode()" style="color: #ee2e24; font-weight: bold; cursor: pointer; text-decoration: underline;">Resend Code</span>
+            </div>
+        </div>
+        
+        <p id="signup-status" style="margin-top: 15px; font-weight: bold; font-size: 13px;"></p>
+    </div>
+
+    <script>
+        const status = document.getElementById('signup-status');
+        let userEmail = "";
+
+        // 1. SIGN UP
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('full-name').value;
+            userEmail = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if(password.length < 6) return alert("Password too short.");
+
+            status.style.color = 'orange';
+            status.innerText = "Sending code...";
+
+            const { data, error } = await _supabase.auth.signUp({
+                email: userEmail,
+                password: password,
+                options: { data: { full_name: name } }
+            });
+
+            if (error) {
+                status.style.color = 'red';
+                status.innerText = error.message;
+            } else {
+                document.getElementById('step-1').style.display = 'none';
+                document.getElementById('step-2').style.display = 'block';
+                status.innerText = "";
+            }
+        });
+
+        // 2. VERIFY OTP
+        async function verifyCode() {
+            const token = document.getElementById('otp-code').value.trim();
+            status.style.color = 'orange';
+            status.innerText = "Verifying...";
+
+            const { data, error } = await _supabase.auth.verifyOtp({
+                email: userEmail,
+                token: token,
+                type: 'signup'
+            });
+
+            if (error) {
+                status.style.color = 'red';
+                status.innerText = "Invalid Code. Try again.";
+            } else {
+                status.style.color = 'green';
+                status.innerText = "Verified! Logging in...";
+                setTimeout(() => window.location.href = 'index.html', 1500);
+            }
+        }
+
+        // 3. RESEND CODE
+        async function resendCode() {
+            const link = document.getElementById('resend-link');
+            status.style.color = 'orange';
+            status.innerText = "Resending...";
+            
+            // Disable link temporarily
+            link.style.pointerEvents = "none";
+            link.style.color = "gray";
+
+            const { data, error } = await _supabase.auth.resend({
+                type: 'signup',
+                email: userEmail
+            });
+
+            if (error) {
+                status.style.color = 'red';
+                status.innerText = "Error: " + error.message;
+            } else {
+                status.style.color = 'green';
+                status.innerText = "Code Resent! Check email.";
+            }
+
+            // Re-enable after 30 seconds
+            setTimeout(() => {
+                link.style.pointerEvents = "auto";
+                link.style.color = "#ee2e24";
+            }, 30000);
+        }
+    </script>
+</body>
+</html>
