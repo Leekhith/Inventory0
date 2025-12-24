@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Product</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+</head>
+<body style="background: white; overflow: auto;">
+
+    <div class="top-container" style="position:relative; background:white; padding-bottom:0;">
+        <div class="app-header">
+            <div class="menu-icon" onclick="history.back()">←</div>
+            <div class="brand-logo" style="margin:0 auto;">Sell Item</div>
+            <div style="width: 24px;"></div>
+        </div>
+    </div>
+
+    <div style="padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 80px;">
+        
+        <form id="add-product-form">
+            
+            <label style="font-weight:bold; display:block; margin-top:15px;">Item Name</label>
+            <input type="text" id="p-name" placeholder="e.g. Sofa, iPhone..." style="width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px;" required>
+
+            <label style="font-weight:bold; display:block; margin-top:15px;">Price</label>
+            <input type="number" id="p-price" placeholder="e.g. 150" style="width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px;" required>
+
+            <label style="font-weight:bold; display:block; margin-top:15px;">Description</label>
+            <textarea id="p-desc" rows="3" placeholder="Condition, age, etc." style="width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px;"></textarea>
+
+            <div style="background:#f0f4ff; padding:15px; border-radius:8px; margin-top:20px; text-align:center; border:1px dashed #4a90e2;">
+                <p style="margin:0 0 10px 0; font-size:14px; color:#555;">Location is required for buyers to find this.</p>
+                <button type="button" id="get-prod-loc-btn" style="background:#4a90e2; color:white; border:none; padding:10px 20px; border-radius:20px;">
+                    📍 Capture Location
+                </button>
+                <p id="prod-loc-status" style="font-size:12px; margin-top:10px; color:#4a90e2;">Status: Waiting...</p>
+            </div>
+
+            <button type="submit" style="width:100%; background:#333; color:white; border:none; padding:15px; border-radius:8px; font-size:16px; font-weight:bold; margin-top:25px;">
+                List Item
+            </button>
+
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
